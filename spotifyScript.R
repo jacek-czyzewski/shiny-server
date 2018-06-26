@@ -61,3 +61,7 @@ data_ex2 <- data.frame(
 
 timevis(data_ex2)
 
+showModal(modalDialog(
+  title = "Important message",
+  "This is an important message!"
+))

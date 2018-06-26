@@ -8,7 +8,7 @@
 #
 
 library(shiny)
-library(shinyBS)
+# library(shinyBS)
 library(jsonlite)
 library(ggplot2)
 
@@ -55,8 +55,10 @@ shinyServer(function(input, output) {
       names(rank1) <- c("artistName", "Count")
       rank1 <- rank1[order(rank1$Count, decreasing=TRUE),]
       ggplot(rank1[rank1$Count > cutoff,], aes(x=reorder(artistName,Count), y=Count)) + geom_bar(stat="identity") + coord_flip() + labs(x="Artist", y="Play count")
-    }else{showWarning <- renderPrint({"nothing for time so far"})
-    showWarning()
+    }else{
+      # observeEvent(input$var == "Time", {showModal(modalDialog(title="important message", "this is important!"))})
+      Message <- function(var){if(var == "Time"){showModal(modalDialog(title="Important message", "Nothing for time yet... :(", easyClose = TRUE))}}
+      Message(input$var)
     }
     
   })

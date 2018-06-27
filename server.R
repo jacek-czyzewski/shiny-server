@@ -11,6 +11,7 @@ library(shiny)
 # library(shinyBS)
 library(jsonlite)
 library(ggplot2)
+library(timevis)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -47,7 +48,6 @@ shinyServer(function(input, output) {
                    "Time" = dataAll$time
                    )
 
-
     cutoff <- input$cutoff
 
     if(input$var == "Artists" | input$var == "Tracks"){
@@ -70,6 +70,22 @@ shinyServer(function(input, output) {
     if(input$var1 == "Artists"){data_band <- dataAll[dataAll$artistName==input$Selection,]}else{data_band <- dataAll[dataAll$trackName==input$Selection,]}
     data_band
   
+  })
+  
+  output$timeline2 <- renderTimevis({
+    dataAll <- myData()
+    dataAll[,3] <- sub(' .*$','', dataAll[,3])
+    # dataAll
+    if(input$var1 == "Artists"){data_band <- dataAll[dataAll$artistName==input$Selection,]}else{data_band <- dataAll[dataAll$trackName==input$Selection,]}
+    data_timeline <- data.frame(
+      id      = c(1:dim(data_band)[1]),
+      content = c(data_band$trackName),
+      start   = c(data_band$time),
+      end     = c(rep(NA, times=length(data_band$time)))
+    )
+    timevis(data_timeline)
+    
+    
   })
   
 })

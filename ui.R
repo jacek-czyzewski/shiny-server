@@ -76,7 +76,8 @@ shinyUI(navbarPage("Spotify Data Stats",
                   
                   mainPanel(
                     tabsetPanel(
-                      tabPanel("Data", tableOutput("timeline1"))
+                      tabPanel("Data", tableOutput("timeline1")),
+                      tabPanel("Timeline", timevisOutput("timeline2"))
                     )
                   )
                 )

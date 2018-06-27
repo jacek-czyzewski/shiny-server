@@ -3,6 +3,7 @@ setwd("C:/Users/dgt/Documents/R Programming Certificate/GDPR data/Spotify")
 library(jsonlite)
 library(ggplot2)
 library(magrittr)
+library(timevis)
 
 
 JsonData <- fromJSON(txt="StreamingHistory.json")
@@ -35,7 +36,6 @@ rank2 <- Filter(function(x) x > 25, with(JsonData1, table(time)))
 plot(rank2)
 
 #plot timelines
-library(timevis)
 
 data_ex <- data.frame(
   id      = 1:4,
